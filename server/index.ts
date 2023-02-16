@@ -115,8 +115,6 @@ app.post("/schedules/:username", (req, res) => {
     return res.json({ error_message: "User doesn't exist" });
 });
 
-console.log("database", database);
-
 app.listen(PORT, () => {
     console.log(`⚡⚡⚡ Server is running here 👉 at http://localhost:${PORT}`);
 });
