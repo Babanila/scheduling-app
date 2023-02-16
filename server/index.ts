@@ -1,7 +1,8 @@
 import express from "express";
+import dotenv from "dotenv";
 import cors from "cors";
 
-export interface DatabaseTypes {
+interface DatabaseTypes {
     id: string;
     username: string;
     password: string;
@@ -10,8 +11,9 @@ export interface DatabaseTypes {
     schedule: any[];
 };
 
+dotenv.config();
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT;
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -19,6 +21,10 @@ app.use(express.json());
 
 const database: DatabaseTypes[] = [];
 const generateID = () => Math.random().toString(36).substring(2, 10);
+
+app.get('/', (req, res) => {
+    res.send('Express + TypeScript Server Running');
+});
 
 app.post("/register", (req, res) => {
     const { username, email, password } = req.body;
@@ -112,5 +118,5 @@ app.post("/schedules/:username", (req, res) => {
 console.log("database", database);
 
 app.listen(PORT, () => {
-    console.log(`⚡⚡⚡ Server is running here 👉 on ${PORT}`);
+    console.log(`⚡⚡⚡ Server is running here 👉 at http://localhost:${PORT}`);
 });
