@@ -3,6 +3,7 @@ import TimezoneSelect, { ITimezone } from "react-timezone-select";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { handleCreateSchedule, time } from "../utils/resource";
+import Navigation from "./Navigation";
 
 const sampleTimezone: ITimezone = {
     value: '',
@@ -54,24 +55,14 @@ const Dashboard = () => {
 		}
 	};
 
-    const handleLogout = () => {
-        localStorage.removeItem("_id");
-        localStorage.removeItem("_myEmail");
-        navigate("/");
-    };
-
     return (
         <div>
-            <nav className="dashboard__nav">
-                <h2>BookMe</h2>
-                <button onClick={handleLogout} className="logout__btn">
-                    Log out
-                </button>
-            </nav>
+            <Navigation title="Booking Page" />
             <main className="dashboard__main">
                 <h2 className="dashboard__heading">Select your availability</h2>
                 <div className="timezone__wrapper">
-                    <p>Pick your timezone</p>
+                    <p>Select your timezone</p>
+
                     <TimezoneSelect
                         value={selectedTimezone}
                         onChange={setSelectedTimezone}
@@ -113,7 +104,7 @@ const Dashboard = () => {
                 </div>
 
                 <div className='saveBtn__container'>
-                    <button onClick={handleSaveSchedules}>SAVE SCHEDULES</button>
+                    <button className="saveBtn__btn" onClick={handleSaveSchedules}>SAVE SCHEDULES</button>
                 </div>
             </main>
         </div>

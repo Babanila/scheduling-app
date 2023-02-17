@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ScheduleTypes } from "../types";
 import { fetchUserDetails } from "../utils/resource";
+import Navigation from "./Navigation";
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -25,7 +26,8 @@ const Profile = () => {
 
     return (
         <main className='profile'>
-            <div style={{ width: "70%" }}>
+            <Navigation title="Profile Page" />
+            <div className="profile__main" style={{ width: "70%" }}>
                 <h2>Hey, {username}</h2>
                 <p>Here is your schedule: {timezone}</p>
                 <table>
