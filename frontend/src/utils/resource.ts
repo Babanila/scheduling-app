@@ -151,8 +151,8 @@ export const sendEmail = (
 ) => {
     emailjs
         .send(
-            "YOUR_SERVICE_ID",
-            "YOUR_TEMPLATE_ID",
+            process.env.REACT_APP_EMAILJS_SERVICE_ID ?? "YOUR_SERVICE_ID",
+            process.env.REACT_APP_EMAILJS_TEMPLATE_ID ?? "YOUR_TEMPLATE_ID",
             {
                 to_email: receiverEmail,
                 from_email: email,
@@ -160,7 +160,7 @@ export const sendEmail = (
                 message,
                 duration,
             },
-            "YOUR_PUBLIC_KEY"
+            process.env.REACT_APP_EMAILJS_PUBLIC_KEY ?? "YOUR_PUBLIC_KEY"
         )
         .then(
             (result) => {

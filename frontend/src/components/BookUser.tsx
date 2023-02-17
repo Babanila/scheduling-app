@@ -1,24 +1,29 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { sendEmail } from "../utils/resource";
 
 const BookUser = () => {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
+    const [receiverEmail, setReceiverEmail] = useState("");
     const [message, setMessage] = useState("");
+    const [duration, setDuration] = useState(30);
     const { user } = useParams();
 
-    //👇🏻 logs the user's details to the console
     const handleSubmit = (e: { preventDefault: () => void; }): void => {
         e.preventDefault();
-        console.log(email, fullName, message);
+        sendEmail(receiverEmail, email, fullName, message, duration);
+        setEmail("");
         setFullName("");
         setMessage("");
+        setReceiverEmail("");
+        setDuration(30);
     };
 
     return (
         <div className='bookContainer'>
             <h2 className='bookTitle'>Book a session with {user}</h2>
-            <form onSubmit={handleSubmit} className='booking__form'>
+            <form className='booking__form' onSubmit={handleSubmit}>
                 <label htmlFor='fullName'>Full Name</label>
                 <input
                     id='fullName'
@@ -45,6 +50,18 @@ const BookUser = () => {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                 />
+
+                <label htmlFor='email'>Receiver Email Address</label>
+                <input
+                    id='receiverEmail'
+                    name='receiverEmail'
+                    required
+                    type='email'
+                    value={receiverEmail}
+                    onChange={(e) => setReceiverEmail(e.target.value)}
+                />
+
+                // TODO: Change to time selection(Duration)
                 <label htmlFor='session'>
                     Select your preferred session - GMT+2 Jerusalem
                 </label>
