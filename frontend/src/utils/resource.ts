@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import emailjs from "@emailjs/browser";
+import { NavigateFunction } from "react-router-dom";
 
 export const time = [
     { id: "null", t: "Select" },
@@ -18,7 +19,11 @@ export const time = [
     { id: "19", t: "19:00pm" },
 ];
 
-export async function handleLogin(username, password, navigate) {
+export async function handleLogin(
+    username: string,
+    password: string,
+    navigate: NavigateFunction,
+    ) {
     try {
         const request = await fetch("http://localhost:5000/login", {
             method: "POST",
@@ -47,7 +52,12 @@ export async function handleLogin(username, password, navigate) {
     }
 }
 
-export async function handleRegister(email, username, password, navigate) {
+export async function handleRegister(
+    email: string,
+    username: string,
+    password: string,
+    navigate: NavigateFunction,
+    ) {
     try {
         const request = await fetch("http://localhost:5000/register", {
             method: "POST",
@@ -77,9 +87,9 @@ export async function handleRegister(email, username, password, navigate) {
 }
 
 export async function handleCreateSchedule(
-    selectedTimezone,
-    schedule,
-    navigate
+    selectedTimezone: any,
+    schedule: any,
+    navigate: (arg0: string) => void
 ) {
     try {
         await fetch("http://localhost:5000/schedule/create", {
@@ -102,11 +112,11 @@ export async function handleCreateSchedule(
 }
 
 export function fetchBookingDetails(
-    user,
-    setError,
-    setTimezone,
-    setSchedules,
-    setReceiverEmail
+    user: any,
+    setError: (arg0: boolean) => void,
+    setTimezone: (arg0: any) => void,
+    setSchedules: (arg0: any) => void,
+    setReceiverEmail: (arg0: any) => void
 ) {
     fetch(`http://localhost:5000/schedules/${user}`, {
         method: "POST",
@@ -133,11 +143,11 @@ export function fetchBookingDetails(
 }
 
 export const sendEmail = (
-    receiverEmail,
-    email,
-    fullName,
-    message,
-    duration
+    receiverEmail: any,
+    email: any,
+    fullName: any,
+    message: any,
+    duration: any
 ) => {
     emailjs
         .send(
@@ -162,4 +172,26 @@ export const sendEmail = (
                 toast.error(error.text);
             }
         );
+};
+
+export const fetchUserDetails = (
+    inputId: string,
+    setSchedules: (arg0: any) => void,
+    setUsername: (arg0: any) => void,
+    setTimezone: (arg0: any) => void,
+    setLoading: (arg0: any) => void,
+    ) => {
+        fetch(`http://localhost:5000/schedules/${inputId}`)
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.error_message) {
+                    toast.error(data.error_message);
+                }  else {
+                    setUsername(data.username);
+                    setSchedules(data.schedules);
+                    setTimezone(data.timezone.label);
+                    setLoading(false);
+                }
+            })
+            .catch((err) => console.error(err));
 };

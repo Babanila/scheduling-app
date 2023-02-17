@@ -8,7 +8,7 @@ const BookUser = () => {
     const { user } = useParams();
 
     //👇🏻 logs the user's details to the console
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: { preventDefault: () => void; }): void => {
         e.preventDefault();
         console.log(email, fullName, message);
         setFullName("");
@@ -48,7 +48,7 @@ const BookUser = () => {
                 <label htmlFor='session'>
                     Select your preferred session - GMT+2 Jerusalem
                 </label>
-                <button className='bookingBtn'>SEND</button>
+                <button className='bookingBtn' onClick={handleSubmit}>SEND</button>
             </form>
         </div>
     );

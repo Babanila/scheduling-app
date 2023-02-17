@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ErrorPage = ({ error }) => {
+const ErrorPage = (error: string) => {
     return (
         <div className='errorContainer'>
             <h2 style={{ marginBottom: "30px" }}>{error}</h2>

@@ -7,10 +7,10 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: { preventDefault: () => void; }): void => {
         if (username.trim() && password.trim()) {
             e.preventDefault();
-            console.log({ username, password });
+            handleLogin(username, password, navigate);
             setPassword("");
             setUsername("");
         }
@@ -38,7 +38,7 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     className='password'
                 />
-                <button className='loginButton' onClick={() => handleLogin(username, password, navigate)}>LOG IN</button>
+                <button className='loginButton' onClick={handleSubmit}>LOG IN</button>
                 <p style={{ textAlign: "center", marginTop: "30px" }}>
                     Don't have an account?{" "}
                     <Link className='link' to='/register'>

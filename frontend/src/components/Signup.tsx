@@ -8,7 +8,7 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: { preventDefault: () => void; }): void => {
         e.preventDefault();
 
         if (username.trim() && password.trim() && email.trim()) {
